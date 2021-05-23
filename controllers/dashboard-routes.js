@@ -16,18 +16,18 @@ router.get('/', withAuth, (req, res) => {
                 attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
-                    attributes: ['username', 'github'],
+                    attributes: ['username'],
                 },
             },
             {
                 model: User,
-                attributes: ['username', 'github'],
+                attributes: ['username'],
             },
         ],
     }).then((postData) => {
             // serialize data before passing over to template
             const posts = postData.map((post) => post.get({ plain: true }))
-            res.render('dashboard', { posts, loggedIn: true })
+            res.render('dashboard', { posts, loggedIn: true, username: req.session.username })
         }).catch((err) => {
             console.log(err)
             res.status(500).json(err)
@@ -46,12 +46,12 @@ router.get('/edit/:id', withAuth, (req, res) => {
                 attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
-                    attributes: ['username', 'github'],
+                    attributes: ['username'],
                 },
             },
             {
                 model: User,
-                attributes: ['username', 'github'],
+                attributes: ['username'],
             },
         ],
     }).then((postData) => {
@@ -66,6 +66,7 @@ router.get('/edit/:id', withAuth, (req, res) => {
             res.render('edit-post', {
                 post,
                 loggedIn: true,
+                username: req.session.username
             })
         })
         .catch((err) => {
@@ -87,18 +88,18 @@ router.get('/create/', withAuth, (req, res) => {
                 attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
-                    attributes: ['username', 'github'],
+                    attributes: ['username'],
                 },
             },
             {
                 model: User,
-                attributes: ['username', 'github'],
+                attributes: ['username'],
             },
         ],
     }).then((postData) => {
             // serialize data before passing over to template
             const posts = postData.map((post) => post.get({ plain: true }))
-            res.render('create-post', { posts, loggedIn: true })
+            res.render('create-post', { posts, loggedIn: true, username: req.session.username })
         })
         .catch((err) => {
             console.log(err)

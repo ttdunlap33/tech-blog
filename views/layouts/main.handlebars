@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{#if username}}
+  <title>Tech Blog: {{username}}</title>
+  {{else}}
+  <title>Tech Blog</title>
+  {{/if}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+
+  <div class="wrapper">
+    <header>
+        
+        <nav class="navbar mt-2">
+            {{#if loggedIn}}
+            <a href="/" class="navbar-item is-hoverable pt-1">Homepage</a>
+            <a href="/dashboard" class="navbar-item is-hoverable pt-1">Dashboard</a>
+            <a href="/dashboard/create/" class="navbar-item is-hoverable pt-1 mr-4">Create Post</a>
+            {{else}}
+            <a href="/" class="navbar-item is-hoverable pt-1">Homepage</a>
+              {{/if}}
+        </nav>
+        {{#if username}}
+        <h1 class="has-text-black px-3 py-3 has-text-weight-bold">Tech Blog: {{username}}</h1>
+        {{else}}
+        <h1 class="has-text-black px-3 py-3 has-text-weight-bold">Tech Blog</h1>
+        {{/if}}
+    </header>
+
+    <main>
+            {{{ body }}}
+    </main>
+
+    <footer class="footer rows pb-2">
+        <div class="row-is-full content has-text-centered">
+            <p>
+            <a href="/">Homepage</a>{{#if loggedIn}} | 
+            <a href="/dashboard/">Dashboard</a> | 
+            <a href="/dashboard/create/">Create New Post</a>
+            {{else}}
+             | <a href="/login/">Login</a>
+            {{/if}}
+            </p>
+        </div>
+        <nav>
+          {{#if loggedIn}}
+          <button id="logout" class="button" style="background-color: orange; color: white;">Logout</button>
+          {{else}}
+          <a href="/login" class="button" style="background-color: royalblue; color: white;">Login</a>
+          {{/if}}
+        </nav>
+      <div class="row-is-full content has-text-centered">
+    <p>
+      <strong>Tech Blog</strong> by <a href="https://github.com/ttdunlap33">Thomas Dunlap</a> |  
+       <a href="mailto:ttdunlap33@gmail.com"><i class="far fa-envelope"></i></a>
+    </p>
+  </div>
+    </footer>
+  </div>
+
+{{#if loggedIn}}
+<script src="/javascript/logout.js"></script>
+{{/if}}
+</body>
+
+</html>

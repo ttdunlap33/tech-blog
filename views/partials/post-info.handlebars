@@ -1,0 +1,25 @@
+<div class="card">
+  <header class="card-header card-header-title has-background-grey-darker">
+    
+        <div class="column">
+            <p class=" has-text-primary-light"></p>
+      <a href="/post/{{id}}"  class="has-text-white is-capitalized is-pulled-left">{{title}} </a></p>
+      </div>
+
+      <div class="column">
+      <span class=""> </span>
+      </div>
+    
+  </header>
+
+    <div class="card-content">
+        <div class="content has-text-justified">
+            {{post_content}}
+        </div>
+            <div class="is-pulled-left">
+                <b>{{user.username}}</b>
+            </div>
+            <div class="is-pulled-right">
+                <b>{{format_date created_at}} | <a href="/post/{{id}}">{{comments.length}} {{format_plural "Comment" comments.length}}</a></b>
+            </div>
+    </div>

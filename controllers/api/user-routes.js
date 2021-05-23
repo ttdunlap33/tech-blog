@@ -42,30 +42,30 @@ router.get('/:id', (req, res) => {
                 return;
             }
             res.json(userData);
-        }).catch(err => {
+        }).catch((err) => {
             console.log(err);
             res.status(500).json(err);
         });
 });
 
-// POST /api/users
+
 router.post('/', (req, res) => {
+    console.log("CREATE USER")
     User.create({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password,
-        twitter: req.body.twitter,
-        github: req.body.github
+        password: req.body.password
     }).then(userData => {
             req.session.save(() => {
                 req.session.user_id = userData.id;
                 req.session.username = userData.username;
-                req.session.twitter = userData.twitter;
-                req.session.github = userData.github;
                 req.session.loggedIn = true;
 
                 res.json(userData);
             });
+        }).catch((err) => {
+            console.log("ERRO")
+            res.status(500).json(err);
         });
 });
 
@@ -84,16 +84,18 @@ router.post('/login', (req, res) => {
         const validPassword = userData.checkPassword(req.body.password);
 
         if (!validPassword) {
+            console.log("Failed validate pass");
             res.status(400).json({ message: 'Incorrect password!' });
             return;
         }
 
-        req.session.save(() => {
+        req.session.save((err) => {
+            if (err) {
+                res.status(400).json({message: err});
+            }
             // declare session variables
             req.session.user_id = userData.id;
             req.session.username = userData.username;
-            req.session.twitter = userData.twitter;
-            req.session.github = userData.github;
             req.session.loggedIn = true;
 
             res.json({ user: userData, message: 'You are now logged in!' });

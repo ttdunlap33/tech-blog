@@ -1,0 +1,26 @@
+<article>
+  <a href="/dashboard" class="is-pulled-right"> &larr; Dashboard</a>
+  <h2 class="title mt-5">Edit Post</h2><hr>
+  <form class="edit-post-form">
+    <div>
+        <label for="post-title">Title:</label>
+      <input class="input" name="post-title" type="text" value="{{post.title}}" />
+    </div>
+    <div>
+        <label for="post-content">Content:</label>
+      <input class="textarea" name="post-content" type="text" value="{{post.post_content}}" />
+    </div>
+    <div class="is-pulled-right">
+      <a href="/post/{{post.id}}">{{post.comments.length}} {{format_plural "Comment" post.comments.length}}</a>
+      | Created on {{format_date post.created_at}}
+    </div>
+    <button type="submit" class="button" style="background-color: royalblue; color: white;">Save</button>
+    <button type="button" class="button delete-post-btn" style="background-color: orange; color: white;">Delete</button>
+  </form>
+</article>
+
+{{> comments post.comments}}
+
+<script src="/javascript/edit-post.js"></script>
+<script src="/javascript/delete-post.js"></script>
+<script src="/javascript/comment.js"></script>

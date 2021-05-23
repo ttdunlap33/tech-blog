@@ -18,19 +18,20 @@ router.get('/', (req, res) => {
                 attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
-                    attributes: ['username', 'github']
+                    attributes: ['username']
                 }
             },
             {
                 model: User,
-                attributes: ['username', 'github']
+                attributes: ['username']
             }
         ]
     }).then(postData => {
             const posts = postData.map(post => post.get({ plain: true }));
             res.render('homepage', {
                 posts,
-                loggedIn: req.session.loggedIn
+                loggedIn: req.session.loggedIn,
+                username: req.session.username
             });
         }).catch(err => {
             console.log(err);
@@ -73,12 +74,12 @@ router.get('/post/:id', (req, res) => {
                 attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
-                    attributes: ['username', 'github']
+                    attributes: ['username']
                 }
             },
             {
                 model: User,
-                attributes: ['username', 'github']
+                attributes: ['username']
             }
         ]
     }).then(postData => {
@@ -93,7 +94,8 @@ router.get('/post/:id', (req, res) => {
             // pass data over to template
             res.render('single-post', {
                 post,
-                loggedIn: req.session.loggedIn
+                loggedIn: req.session.loggedIn,
+                username: req.session.username
             });
         }).catch(err => {
             console.log(err);
