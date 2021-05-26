@@ -39,7 +39,7 @@
   
   ## Deployable
   
-  https://tech-blog-ttd.herokuapp.com/dashboard
+  https://tech-blog-ttd.herokuapp.com
   
   ## Questions
   
